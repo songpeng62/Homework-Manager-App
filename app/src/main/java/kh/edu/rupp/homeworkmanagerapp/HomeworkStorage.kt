@@ -8,8 +8,8 @@ import java.io.IOException
 import java.io.InputStreamReader
 
 /**
- * HomeworkStorage is a helper object for saving and reading homework data 
- * to the device's internal storage.
+ * HomeworkStorage is a helper object for managing homework data in internal storage.
+ * It handles saving, reading, and deleting tasks from a private text file.
  */
 object HomeworkStorage {
 
@@ -38,31 +38,26 @@ object HomeworkStorage {
 
     /**
      * Reads all homework entries from the internal file.
-     * Returns a List of Strings, where each string is one line from the file.
+     * Returns a List of Strings, where each string is one homework task.
      */
     fun readHomework(context: Context): List<String> {
         val homeworkList = mutableListOf<String>()
         var fileInputStream: FileInputStream? = null
 
         try {
-            // Open the file for reading
             fileInputStream = context.openFileInput(FILE_NAME)
-            
-            // Use InputStreamReader and BufferedReader to read text line by line
             val inputStreamReader = InputStreamReader(fileInputStream)
             val bufferedReader = BufferedReader(inputStreamReader)
 
             var line: String? = bufferedReader.readLine()
             while (line != null) {
-                // Add the line to our list if it's not empty
                 if (line.isNotBlank()) {
                     homeworkList.add(line)
                 }
                 line = bufferedReader.readLine()
             }
         } catch (e: IOException) {
-            // If the file is not found or cannot be read, we log the error.
-            // This usually happens the very first time the app runs.
+            // File not found is expected on the first run
             e.printStackTrace()
         } finally {
             try {
@@ -73,5 +68,39 @@ object HomeworkStorage {
         }
 
         return homeworkList
+    }
+
+    /**
+     * Deletes a specific homework task from the internal storage.
+     * Since we use a text file, we must read all tasks, remove the target, and rewrite the file.
+     */
+    fun deleteHomework(context: Context, targetHomework: HomeworkModel) {
+        // 1. Read all existing homework tasks as raw strings
+        val allTasks = readHomework(context)
+
+        // 2. Convert the target model back into the string format used in the file
+        val targetString = "${targetHomework.subject}|${targetHomework.title}|${targetHomework.deadline}|${targetHomework.status}"
+
+        // 3. Filter the list to exclude the task we want to delete
+        val updatedTasks = allTasks.filter { it != targetString }
+
+        // 4. Overwrite the entire file with the updated list
+        var fileOutputStream: FileOutputStream? = null
+        try {
+            // MODE_PRIVATE replaces the file content instead of adding to it
+            fileOutputStream = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE)
+            for (task in updatedTasks) {
+                val line = task + "\n"
+                fileOutputStream.write(line.toByteArray())
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            try {
+                fileOutputStream?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
     }
 }

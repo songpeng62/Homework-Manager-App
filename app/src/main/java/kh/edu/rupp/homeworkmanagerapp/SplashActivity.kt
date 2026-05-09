@@ -17,8 +17,10 @@ class SplashActivity : AppCompatActivity() {
         // Sets the UI layout from activity_splash.xml
         setContentView(R.layout.activity_splash)
 
+        // Hide the top action bar for a clean full-screen splash look
+        supportActionBar?.hide()
+
         // Find the "Get Started" button by its ID
-        // Fixed: Using 'btnGetStarted' to match the ID in activity_splash.xml
         val getStartedButton: Button = findViewById(R.id.btnGetStarted)
 
         // Set a click listener to the button

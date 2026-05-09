@@ -51,6 +51,19 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+        <!-- Delete Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDeleteHomework"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:text="Delete"
+            android:textColor="#D32F2F"
+            android:textSize="12sp"
+            app:rippleColor="#10D32F2F" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
