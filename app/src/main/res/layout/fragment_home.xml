@@ -57,13 +57,43 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!-- Quote Title Section -->
+    <TextView
+        android:id="@+id/tvQuoteTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Quote of the Day"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardTaskSummary" />
+
+    <!-- Quote Content Section -->
+    <TextView
+        android:id="@+id/tvQuoteContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:text="Loading quote..."
+        android:textColor="#757575"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvQuoteTitle" />
+
     <!-- Button to View Homework List -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnViewHomework"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/primaryColor"
         android:padding="12dp"
@@ -74,7 +104,7 @@
         app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardTaskSummary" />
+        app:layout_constraintTop_toBottomOf="@id/tvQuoteContent" />
 
     <!-- Button to Add New Homework -->
     <com.google.android.material.button.MaterialButton
